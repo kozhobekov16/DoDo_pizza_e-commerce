@@ -1,27 +1,61 @@
 import React from 'react'
+import classNames from 'classnames'
+import PropTypes from "proptypes";
 
-function Pizza({item}) {
+function Pizza({name, types, imageUrl, sizes, price}) {
+    const typesName = ['тонкое', 'традиционное']
+    const [selectType, setSelectType] = React.useState(types[0])
+    const [selectSm, setSelectSm] = React.useState(0)
+
+    const selectTypeClick = i => {
+        setSelectType(i)
+    }
+
+    const selectSmClick = idx => {
+        setSelectSm(idx)
+    }
+
     return (
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                src={item.imageUrl}
+                src={imageUrl}
                 alt="Pizza"
             />
-            <h4 className="pizza-block__title">{item.name}</h4>
+            <h4 className="pizza-block__title">{name}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">тонкое</li>
-                    <li>традиционное</li>
+                    {typesName.map((elem, i) => (
+                        <li
+                            key={`${elem}_${i}`}
+                            className={classNames({
+                                active: selectType === i,
+                                disabled: !types.includes(i),
+                            })
+                            }
+                            onClick={() => selectTypeClick(i)}
+                        >
+                            {elem}
+                        </li>
+                    ))}
                 </ul>
                 <ul>
-                    {item.sizes.map((elem, i) => (
-                        <li key={`${elem}_${i}`}>{elem} см.</li>
+                    {sizes.map((elem, idx) => (
+                        <li
+                            key={`${elem}_${idx}`}
+                            className={classNames({
+                                active: selectSm === idx,
+                                disabled: !sizes.includes(elem)
+                            })}
+                            onClick={() => selectSmClick(idx)}
+                        >
+                            {elem} см.
+                        </li>
                     ))}
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">от {item.price} ₽</div>
+                <div className="pizza-block__price">от {price} ₽</div>
                 <div className="button button--outline button--add">
                     <svg
                         width="12"
@@ -42,5 +76,14 @@ function Pizza({item}) {
         </div>
     )
 }
+
+Pizza.propTypes = {
+    name: PropTypes.string.isRequired,
+    types: PropTypes.arrayOf(PropTypes.number).isRequired,
+    price: PropTypes.number.isRequired,
+    sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+    onClick: PropTypes.func,
+}
+
 
 export default Pizza

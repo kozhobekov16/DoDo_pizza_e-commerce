@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import PropTypes from "proptypes";
 import './scss/app.scss'
 import {Header} from './components'
 import {Home, Cart, NotFound} from './pages'
@@ -34,6 +35,16 @@ function App() {
             </Routes>
         </div>
     )
+}
+
+Home.propTypes = {
+    data: PropTypes.array,
+    items: PropTypes.array.isRequired,
+    sortItem: PropTypes.array.isRequired
+}
+
+Home.defaultProps = {
+    data: ''
 }
 
 export default App

@@ -12,8 +12,8 @@ function Home({items, sortItem, data}) {
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items">
-                    {data.map(item => (
-                        <Pizza item={item} key={item.id}/>
+                    {data.map(data => (
+                        <Pizza {...data} key={data.id}/>
                     ))}
                 </div>
             </div>

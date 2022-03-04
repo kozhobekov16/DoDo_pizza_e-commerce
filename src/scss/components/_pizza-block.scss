@@ -54,6 +54,10 @@ $duration: 0.15s;
           border-radius: 5px;
           cursor: auto;
         }
+        &.disabled{
+          opacity: .4;
+          pointer-events: none;
+        }
       }
     }
   }
