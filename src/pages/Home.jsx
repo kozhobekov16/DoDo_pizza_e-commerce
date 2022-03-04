@@ -1,6 +1,6 @@
 import React from 'react'
 import {Categories, Sort, Pizza} from "../components";
-function Home({items, sortItem}) {
+function Home({items, sortItem, data}) {
     return(
         <div className="content">
             <div className="container">
@@ -12,7 +12,9 @@ function Home({items, sortItem}) {
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items">
-                    <Pizza/>
+                    {data.map(item => (
+                        <Pizza item={item} key={item.id}/>
+                    ))}
                 </div>
             </div>
         </div>
